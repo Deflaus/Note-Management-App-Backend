@@ -1,0 +1,8 @@
+.idea
+.vscode
+.python-version
+.env.local
+.env.dev
+__pycache__
+.flush_db.sh
+pyrightconfig.json

@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:15.2
+    restart: on-failure
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=note_management_app
+      - POSTGRES_PASSWORD=note_management_app
+      - POSTGRES_DB=note_management_app
+    healthcheck:
+      test: pg_isready -U note_management_app -d note_management_app
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  postgres_data:
