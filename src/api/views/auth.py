@@ -1,4 +1,4 @@
-from typing import Any
+import typing
 
 from drf_yasg.utils import no_body, swagger_auto_schema
 from rest_framework import status
@@ -34,7 +34,7 @@ class AuthViewSet(GenericViewSet):
         operation_summary="Create new account",
     )
     @action(methods=["POST"], detail=False)
-    def sign_up(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+    def sign_up(self, request: Request, *args: typing.Any, **kwargs: typing.Any) -> Response:
         serializer = AuthSignUpSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -49,7 +49,7 @@ class AuthViewSet(GenericViewSet):
         operation_summary="Sign in",
     )
     @action(methods=["POST"], detail=False)
-    def sign_in(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+    def sign_in(self, request: Request, *args: typing.Any, **kwargs: typing.Any) -> Response:
         serializer = AuthSignInSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -64,6 +64,6 @@ class AuthViewSet(GenericViewSet):
         operation_summary="Delete current auth token",
     )
     @action(methods=["POST"], detail=False)
-    def sign_out(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+    def sign_out(self, request: Request, *args: typing.Any, **kwargs: typing.Any) -> Response:
         request.auth.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
