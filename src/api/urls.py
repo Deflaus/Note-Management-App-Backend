@@ -5,6 +5,7 @@ from api.openapi import schema_view
 from api.views.auth import AuthViewSet
 from api.views.note import NoteViewSet
 
+app_name = "api"
 router = DefaultRouter()
 router.register("auth", AuthViewSet, basename="auth")
 router.register("note", NoteViewSet, basename="note")
