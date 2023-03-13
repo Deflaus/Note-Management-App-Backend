@@ -8,7 +8,7 @@ from api.views.note import NoteViewSet
 app_name = "api"
 router = DefaultRouter()
 router.register("auth", AuthViewSet, basename="auth")
-router.register("note", NoteViewSet, basename="note")
+router.register("notes", NoteViewSet, basename="notes")
 
 urlpatterns = router.urls
 urlpatterns += [

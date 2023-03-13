@@ -16,7 +16,7 @@ def test__create_note__success_case(api_client: APIClient) -> None:
     note.delete()
 
     api_client.force_authenticate(user)
-    r = api_client.post(reverse("api:note-list"), data=note_data)
+    r = api_client.post(reverse("api:notes-list"), data=note_data)
     r_data = r.json()
 
     assert r.status_code == status.HTTP_201_CREATED
@@ -31,7 +31,7 @@ def test__create_note__without_data(api_client: APIClient) -> None:
     user = UserFactory.create()
 
     api_client.force_authenticate(user)
-    r = api_client.post(reverse("api:note-list"))
+    r = api_client.post(reverse("api:notes-list"))
     r_data = r.json()
 
     assert r.status_code == status.HTTP_400_BAD_REQUEST
@@ -40,7 +40,7 @@ def test__create_note__without_data(api_client: APIClient) -> None:
 
 @pytest.mark.django_db
 def test__create_note__without_auth(api_client: APIClient) -> None:
-    r = api_client.post(reverse("api:note-list"))
+    r = api_client.post(reverse("api:notes-list"))
     r_data = r.json()
 
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
@@ -56,7 +56,7 @@ def test__create_note__without_name(api_client: APIClient) -> None:
     note.delete()
 
     api_client.force_authenticate(user)
-    r = api_client.post(reverse("api:note-list"), data=note_data)
+    r = api_client.post(reverse("api:notes-list"), data=note_data)
     r_data = r.json()
 
     assert r.status_code == status.HTTP_400_BAD_REQUEST

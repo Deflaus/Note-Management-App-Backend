@@ -13,7 +13,7 @@ def test__delete_note__own_note(api_client: APIClient) -> None:
     user_note = NoteFactory.create(user=user)
 
     api_client.force_authenticate(user)
-    r = api_client.delete(reverse("api:note-detail", args=[user_note.pk]))
+    r = api_client.delete(reverse("api:notes-detail", args=[user_note.pk]))
 
     assert r.status_code == status.HTTP_204_NO_CONTENT
 
@@ -26,7 +26,7 @@ def test__delete_note__other_note(api_client: APIClient) -> None:
     user2_note = NoteFactory.create(user=user2)
 
     api_client.force_authenticate(user1)
-    r = api_client.delete(reverse("api:note-detail", args=[user2_note.pk]))
+    r = api_client.delete(reverse("api:notes-detail", args=[user2_note.pk]))
 
     assert r.status_code == status.HTTP_404_NOT_FOUND
 
@@ -36,14 +36,14 @@ def test__delete_note__non_existent_note(api_client: APIClient) -> None:
     user = UserFactory.create()
 
     api_client.force_authenticate(user)
-    r = api_client.delete(reverse("api:note-detail", args=[123]))
+    r = api_client.delete(reverse("api:notes-detail", args=[123]))
 
     assert r.status_code == status.HTTP_404_NOT_FOUND
 
 
 @pytest.mark.django_db
 def test__delete_note__without_auth(api_client: APIClient) -> None:
-    r = api_client.delete(reverse("api:note-detail", args=[123]))
+    r = api_client.delete(reverse("api:notes-detail", args=[123]))
     r_data = r.json()
 
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
