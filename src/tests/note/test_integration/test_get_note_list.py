@@ -38,7 +38,7 @@ def test__get_note_list__success_case(api_client: APIClient, user1_notes_count, 
     user2_notes = NoteFactory.create_batch(user2_notes_count, user=user2)
 
     api_client.force_authenticate(user1)
-    r = api_client.get(reverse("api:note-list"))
+    r = api_client.get(reverse("api:notes-list"))
     r_data = r.json()
 
     assert r.status_code == status.HTTP_200_OK
@@ -49,7 +49,7 @@ def test__get_note_list__success_case(api_client: APIClient, user1_notes_count, 
 
 @pytest.mark.django_db
 def test__get_note_list__without_auth(api_client: APIClient) -> None:
-    r = api_client.get(reverse("api:note-list"))
+    r = api_client.get(reverse("api:notes-list"))
     r_data = r.json()
 
     assert r.status_code == status.HTTP_401_UNAUTHORIZED

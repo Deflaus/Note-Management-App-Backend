@@ -27,7 +27,7 @@ def test__update_note__own_note_name_and_description(api_client: APIClient) -> N
     data = new_note_name_and_description()
 
     api_client.force_authenticate(user)
-    r = api_client.patch(reverse("api:note-detail", args=[user_note.pk]), data=data)
+    r = api_client.patch(reverse("api:notes-detail", args=[user_note.pk]), data=data)
     r_data = r.json()
 
     assert r.status_code == status.HTTP_200_OK
@@ -44,7 +44,7 @@ def test__update_note__own_note_description(api_client: APIClient) -> None:
     data = new_note_description()
 
     api_client.force_authenticate(user)
-    r = api_client.patch(reverse("api:note-detail", args=[user_note.pk]), data=data)
+    r = api_client.patch(reverse("api:notes-detail", args=[user_note.pk]), data=data)
     r_data = r.json()
 
     assert r.status_code == status.HTTP_200_OK
@@ -61,7 +61,7 @@ def test__update_note__own_note_name(api_client: APIClient) -> None:
     data = new_note_name()
 
     api_client.force_authenticate(user)
-    r = api_client.patch(reverse("api:note-detail", args=[user_note.pk]), data=data)
+    r = api_client.patch(reverse("api:notes-detail", args=[user_note.pk]), data=data)
     r_data = r.json()
 
     assert r.status_code == status.HTTP_200_OK
@@ -79,7 +79,7 @@ def test__update_note__other_note(api_client: APIClient) -> None:
     data = new_note_name_and_description()
 
     api_client.force_authenticate(user1)
-    r = api_client.patch(reverse("api:note-detail", args=[user2_note.pk]), data=data)
+    r = api_client.patch(reverse("api:notes-detail", args=[user2_note.pk]), data=data)
 
     assert r.status_code == status.HTTP_404_NOT_FOUND
 
@@ -89,14 +89,14 @@ def test__update_note__non_existent_note(api_client: APIClient) -> None:
     user = UserFactory.create()
 
     api_client.force_authenticate(user)
-    r = api_client.patch(reverse("api:note-detail", args=[123]), data=new_note_name_and_description())
+    r = api_client.patch(reverse("api:notes-detail", args=[123]), data=new_note_name_and_description())
 
     assert r.status_code == status.HTTP_404_NOT_FOUND
 
 
 @pytest.mark.django_db
 def test__update_note__without_auth(api_client: APIClient) -> None:
-    r = api_client.patch(reverse("api:note-detail", args=[123]))
+    r = api_client.patch(reverse("api:notes-detail", args=[123]))
     r_data = r.json()
 
     assert r.status_code == status.HTTP_401_UNAUTHORIZED

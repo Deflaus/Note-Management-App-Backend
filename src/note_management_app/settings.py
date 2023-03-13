@@ -7,7 +7,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-mz7($xilj+$#q6ufewb!d
 
 DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 
-ALLOWED_HOSTS = list(set(os.environ.get("ALLOWED_HOSTS", "").split("&") + ["localhost"]))
+ALLOWED_HOSTS = list(set(os.environ.get("ALLOWED_HOSTS", "").split("&") + ["localhost", "127.0.0.1"]))
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -96,6 +96,9 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATIC_URL = "/staticfiles/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Rest framework config
 REST_FRAMEWORK = {
